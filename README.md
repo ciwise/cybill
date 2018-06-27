@@ -1,5 +1,5 @@
 # cybill
-*Core software for the cryptocurrency or alt-coin CyBill*
+**Core software for the cryptocurrency or alt-coin CyBill**
 
 Copyright (c) 2009-2012 The Bitcoin Core developers
 
