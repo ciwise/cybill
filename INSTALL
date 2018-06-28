@@ -1,0 +1,11 @@
+Installing CyBill
+
+Installing CyBill depends on the OS or platform of choice.
+
+See doc/readme-qt.rst for instructions on building and installing CyBill QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of CyBill (gui wallet).
+
+See doc/build-*.txt for instructions on building cybilld,
+the intended-for-services, no-graphical-interface, reference
+implementation of CyBill (daemon).
