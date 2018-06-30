@@ -1,11 +1,14 @@
 # Copyright (C) 2009-2012 The Bitcoin Core Developers
 # Copyright (C) 2012-2014 The PPCoin Developers
 # Copyright (C) 2014 The Magi Core Developers
+# Copyright (C) 2018 The CI Wise Developers
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 CXX=llvm-g++
-#DEPSDIR=/opt/local
+
+#homebrew, in lieu of macports
+DEPSDIR=/usr/local/Cellar
 
 # :=0 --> UPnP support turned off by default at runtime
 # :=1 --> UPnP support turned on by default at runtime
@@ -20,31 +23,36 @@ INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
  -I"$(DEPSDIR)/include" \
- -I"$(DEPSDIR)/include/db48"
+ -I"$(DEPSDIR)/berkeley-db@4/4.8.30/include/db48" \
+ -I"$(DEPSDIR)/openssl/1.0.2o_2/include"
 
 LIBPATHS= \
- -L"$(DEPSDIR)/lib" \
- -L"$(DEPSDIR)/lib/db48"
+ -L"$(DEPSDIR)" \
+ -L"$(DEPSDIR)/berkeley-db@4/4.8.30/lib" \
+ -L"$(DEPSDIR)/leveldb/1.20_2/lib"
 
 LIBS = -dead_strip
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
-BOOST_LIB_SUFFIX=-mt-s
+
+BOOST_LIB_SUFFIX=-mt
 
 ifdef STATIC
-# Build STATIC if you are redistributing the binary
-#DEPSDIR=/opt/crypt
+#  Build STATIC if you are redistributing the binary
+
+# NOTE: File library (.a) does not exist
 TESTLIBS += \
- $(DEPSDIR)/lib/libboost_unit_test_framework-mt.a
+ $(DEPSDIR)/boost@1.57/1.57.0/lib/libboost_unit_test_framework-mt.a
+
 LIBS += \
- $(DEPSDIR)/lib/libdb_cxx-4.8.a \
- $(DEPSDIR)/lib/libboost_system$(BOOST_LIB_SUFFIX).a \
- $(DEPSDIR)/lib/libboost_filesystem$(BOOST_LIB_SUFFIX).a \
- $(DEPSDIR)/lib/libboost_program_options$(BOOST_LIB_SUFFIX).a \
- $(DEPSDIR)/lib/libboost_thread$(BOOST_LIB_SUFFIX).a \
- $(DEPSDIR)/lib/libssl.a \
- $(DEPSDIR)/lib/libgmp.a \
- $(DEPSDIR)/lib/libcrypto.a \
+ $(DEPSDIR)/berkeley-db@4/4.8.30/lib/libdb_cxx-4.8.a \
+ $(DEPSDIR)/boost@1.57/1.57.0/lib/libboost_system$(BOOST_LIB_SUFFIX).a \
+ $(DEPSDIR)/boost@1.57/1.57.0/lib/libboost_filesystem$(BOOST_LIB_SUFFIX).a \
+ $(DEPSDIR)/boost@1.57/1.57.0/lib/libboost_program_options$(BOOST_LIB_SUFFIX).a \
+ $(DEPSDIR)/boost@1.57/1.57.0/lib/libboost_thread$(BOOST_LIB_SUFFIX).a \
+ $(DEPSDIR)/openssl/1.0.2o_2/lib/libssl.a \
+ $(DEPSDIR)/gmp/6.1.2_2/lib/libgmp.a \
+ $(DEPSDIR)/openssl/1.0.2o_2/lib/libcrypto.a \
  -lz
 else
 TESTLIBS += \
@@ -131,18 +139,20 @@ ifneq (${USE_IPV6}, -)
 	DEFS += -DUSE_IPV6=$(USE_IPV6)
 endif
 
-all: magid
+all: cybilld
 
-test check: test_magi FORCE
-	./test_magi
+test check: test_cybill FORCE
+	./test_cybill
 
 #
 # LevelDB support
 #
+
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/helpers)
 OBJS += obj/txdb.o
+
 leveldb/libleveldb.a:
 	@echo "Building LevelDB ..." && cd leveldb && $(MAKE) CC=$(CC) CXX=$(CXX) OPT="$(CFLAGS)" libleveldb.a libmemenv.a && cd ..
 
@@ -183,7 +193,7 @@ obj/%.o: hash/%.c
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-magid: $(OBJS:obj/%=obj/%)
+cybilld: $(OBJS:obj/%=obj/%)
 	$(CXX) $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -195,11 +205,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_magi: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_cybill: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(CXX) $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS) $(TESTLIBS)
 
 clean:
-	-rm -f magid test_magi
+	-rm -f cybilld test_cybill
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P
