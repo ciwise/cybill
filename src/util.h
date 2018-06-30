@@ -151,6 +151,7 @@ inline void MilliSleep(int64 n)
 
 #define BTC_COPYRIGHT_STR "Copyright (C) 2009-2012 The Bitcoin Core Developers"
 #define PPC_COPYRIGHT_STR "Copyright (C) 2012-2014 The PPCoin Developers"
+#define CYB_COPYRIGHT_STR "Copyright (C) 2018 The CI Wise Developers"
 
 extern std::map<std::string, std::string> mapArgs;
 extern std::map<std::string, std::vector<std::string> > mapMultiArgs;
@@ -255,7 +256,7 @@ extern const char *feedbackUrl;
 
 inline std::string i64tostr(int64 n)
 {
-    return strprintf("%"PRI64d, n);
+    return strprintf("%" PRI64d, n);
 }
 
 inline std::string itostr(int n)

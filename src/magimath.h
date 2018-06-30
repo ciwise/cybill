@@ -29,6 +29,7 @@ inline double exp_n2(double x1, double x2)
 {
     double p1 = -700., p2 = -37., p3 = -0.8e-8, p4 = 0.8e-8, p5 = 37., p6 = 700.;
     double xt = x1 - x2;
+
     if (xt < p1+1.e-200)
         return 1.;
     else if (xt > p1 && xt < p2 + 1.e-200)
@@ -43,6 +44,9 @@ inline double exp_n2(double x1, double x2)
         return ( exp(-xt) );
     else if (xt > p6 - 1.e-200)
         return 0.;
+    else
+        return -1.;
+
 }
 
 #endif
