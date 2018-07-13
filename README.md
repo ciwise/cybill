@@ -10,6 +10,8 @@ Copyright (c) 2014-2017 The Magi Core developers
 
 Copyright (c) 2018 The CI Wise developers
 
+![](src/qt/res/images/about.png)
+
 CyBill is derived from Bitcoin, PPCoin, Magi Coin, and is released under the terms of 
 the MIT license. See COPYING for more information or see 
 http://opensource.org/licenses/MIT.
