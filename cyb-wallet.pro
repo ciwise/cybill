@@ -3,18 +3,19 @@
 ##############################################################################
 
 TEMPLATE = app
-TARGET = cyb-wallet
-macx:TARGET = "cyb-wallet"
+TARGET = cybill-core
+macx:TARGET = "cybill-core"
 VERSION = 0.1.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-QT += core gui network
-greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
-}
+QT += core gui network widgets
+
+#greaterThan(QT_MAJOR_VERSION, 4) {
+#QT += widgets
+#}
 
 # for boost > 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -24,6 +25,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 # Dependency library locations can be customized using following settings 
 # winbuild dependencies
+
 win32 {
 #    BOOST_LIB_SUFFIX=-mgw49-mt-s-1_58
     BOOST_INCLUDE_PATH=$$DEPSDIR/boost_1_58_0
@@ -121,7 +123,7 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
 SOURCES += src/txdb.cpp \
-    src/qt/magi.cpp \
+    src/qt/cybill.cpp \
     src/qt/magiaddressvalidator.cpp \
     src/qt/magiamountfield.cpp \
     src/qt/magigui.cpp \
@@ -352,7 +354,8 @@ FORMS += \
     src/qt/forms/rpcconsole.ui \
     src/qt/forms/optionsdialog.ui \
     src/qt/forms/console.ui \
-    src/qt/forms/helpmessagedialog.ui
+    src/qt/forms/helpmessagedialog.ui \
+    src/qt/forms/aboutdialog.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -401,7 +404,7 @@ OTHER_FILES += README.md \
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
-    macx:BOOST_LIB_SUFFIX = -mt-s
+    macx:BOOST_LIB_SUFFIX = -mt
     windows:BOOST_LIB_SUFFIX = -mgw49-mt-s-1_58
 }
 
@@ -410,7 +413,7 @@ isEmpty(BOOST_THREAD_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_LIB_PATH) {
-    macx:BDB_LIB_PATH = /opt/local/lib/db48
+    macx:BDB_LIB_PATH = /usr/local/Cellar/berkeley-db@4/4.8.30/lib
 }
 
 isEmpty(BDB_LIB_SUFFIX) {
@@ -418,15 +421,15 @@ isEmpty(BDB_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_INCLUDE_PATH) {
-    macx:BDB_INCLUDE_PATH = /opt/local/include/db48
+    macx:BDB_INCLUDE_PATH = /usr/local/Cellar/berkeley-db@4/4.8.30/include
 }
 
 isEmpty(BOOST_LIB_PATH) {
-    macx:BOOST_LIB_PATH = /opt/local/lib
+    macx:BOOST_LIB_PATH = /usr/local/Cellar/boost@1.57/1.57.0/lib
 }
 
 isEmpty(BOOST_INCLUDE_PATH) {
-    macx:BOOST_INCLUDE_PATH = /opt/local/include
+    macx:BOOST_INCLUDE_PATH = /usr/local/Cellar/boost@1.57/1.57.0/include
 }
 
 windows:DEFINES += WIN32
@@ -448,14 +451,29 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     LIBS += -lrt
 }
 
+############################################
+# MAC OS-X Specific
+############################################
+macx:CFLAGS += -stdlib=libc++
+macx:INCLUDEPATH +=  /usr/local/Cellar/miniupnpc/2.1/include /usr/local/Cellar/boost@1.57/1.57.0/include /usr/local/Cellar/openssl/1.0.2o_2/include /usr/local/Cellar/gmp/6.1.2_2/include /usr/local/Cellar/leveldb/1.20_2/include /usr/local/Cellar/berkeley-db@4/4.8.30/include
 macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit -framework CoreServices
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/magi.icns
-macx:QMAKE_CFLAGS_THREAD += -pthread
+macx:ICON = src/qt/res/icons/cybill.icns
+macx:CONFIG += -std=c++11
+macx:QMAKE_CFLAGS_THREAD += -pthread -stdlib=libc++
 macx:QMAKE_LFLAGS_THREAD += -pthread
-macx:QMAKE_CXXFLAGS_THREAD += -pthread
+macx:QMAKE_CXXFLAGS_THREAD += -pthread -stdlib=libc++ -std=c++11
+macx:MINIUPNPC_LIB_PATH = /usr/local/Cellar/miniupnpc/2.1/lib
+macx:LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+macx:GMP_LIB_PATH = /usr/local/Cellar/gmp/6.1.2_2/lib
+macx:LIBS += $$join(GMP_LIB_PATH,,-L,) -lgmp
+macx:OPENSSL_LIB_PATH = /usr/local/Cellar/openssl/1.0.2o_2/lib
+macx:LIBS += $$join(OPENSSL_LIB_PATH,,-L,) -lssl
+macx:BOOST_LIB_PATH = /usr/local/Cellar/boost@1.57/1.57.0/lib
+macx:LIBS += $$join(BOOST_LIB_PATH,,-L,) -lboost_system-mt
+macx:LIBS += $$join(BOOST_LIB_PATH,,-L,) -lboost_thread-mt
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$OPT_INCLUDE_PATH $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH $$GMP_INCLUDE_PATH

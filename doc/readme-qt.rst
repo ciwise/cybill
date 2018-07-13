@@ -66,24 +66,18 @@ Windows build instructions:
 .. _`610945D0`: http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x610945D0
 
 
-Mac OS X
---------
+Mac OS X (Tested on v10.13)
+-------------------------------
+- See Prerequisites in file build-osx.txt
 
-- Download and install the `Qt Mac OS X SDK`_. It is recommended to also install Apple's Xcode with UNIX tools.
-
-- Download and install `MacPorts`_.
+- Download and install the Qt Mac OS X SDK. It is recommended to also install Apple's Xcode with UNIX tools.
 
 - Execute the following commands in a terminal to get the dependencies:
 
-::
-
-	sudo port selfupdate
-	sudo port install boost db48 miniupnpc
-
 - Open the .pro file in Qt Creator and build as normal (cmd-B)
 
-.. _`Qt Mac OS X SDK`: http://qt.nokia.com/downloads/sdk-mac-os-cpp
-.. _`MacPorts`: http://www.macports.org/install.php
+- Correct @rpath in executable (post-build) using install_name_tool (OS-X command-line tools)
+  - install_name_tool -rpath @executable_path/Frameworks /usr/local/lib cybill-wallet
 
 
 Build configuration options

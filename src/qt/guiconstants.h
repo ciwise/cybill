@@ -52,12 +52,12 @@ const struct {
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "Magi"
-#define QAPP_ORG_DOMAIN "m-core.org"
-#define QAPP_APP_NAME_DEFAULT "m-wallet"
-#define QAPP_APP_NAME_TESTNET "m-wallet-testnet"
+#define QAPP_ORG_NAME "CyBill"
+#define QAPP_ORG_DOMAIN "ciwise.org"
+#define QAPP_APP_NAME_DEFAULT "cybill-wallet"
+#define QAPP_APP_NAME_TESTNET "cybill-wallet-testnet"
 
-#define QAPP_URL_SOURCE_CODE "https://github.com/magi-project/magi"
-#define QAPP_URL_WEBSITE "http://m-core.org"
+#define QAPP_URL_SOURCE_CODE "https://github.com/ciwise/cybill"
+#define QAPP_URL_WEBSITE "https://ciwise.org"
 
 #endif // GUICONSTANTS_H

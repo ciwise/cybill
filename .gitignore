@@ -1,2 +1,9 @@
 doc/doxygen/
 .idea/
+src/qt/res/icons/*
+src/qt/res/images/*
+src/qt/locale/*
+build-cyb-wallet-Desktop_Qt_5_11_1_clang_64bit-Debug/
+Makefile
+cyb-wallet.pro.user
+src/cybilld

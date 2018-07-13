@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
+    <width>1368</width>
     <height>332</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>About Magi</string>
+   <string>About CyBill</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -43,9 +43,6 @@
    <item row="0" column="1">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QTextEdit" name="textEdit"/>
-     </item>
-     <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -66,7 +63,7 @@
           <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="text">
-          <string>&lt;b&gt;Magi&lt;/b&gt; Core version</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CyBill Core version&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -79,7 +76,7 @@
           <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="text">
-          <string notr="true">1.0</string>
+          <string notr="true">0.1.0</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -103,6 +100,12 @@
      </item>
      <item>
       <widget class="QLabel" name="copyrightLabel">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>2000000</height>
+        </size>
+       </property>
        <property name="cursor">
         <cursorShape>IBeamCursor</cursorShape>
        </property>
@@ -111,7 +114,8 @@
 Copyright © 2009-2012 Bitcoin Developers
 Copyright © 2012-2014 PPCoin Developers
 Copyright © 2014-2017 Magi Developers
-</string>
+Copyright © 2018 The CI Wise Developers
+				</string>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>

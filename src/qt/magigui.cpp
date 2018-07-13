@@ -93,7 +93,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     spinnerFrame(0)
 {
     restoreWindowGeometry();
-    setWindowTitle(tr("Coin Magi") + " - " + tr("Wallet"));
+    setWindowTitle(tr("CyBill") + " - " + tr("Wallet"));
     setStyle(QStyleFactory::create("cleanlooks"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/magi"));
@@ -106,8 +106,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Accept D&D of URIs
     setAcceptDrops(true);
 
-    setObjectName("MagiWallet");
-//    setStyleSheet("#MagiWallet { background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #eeeeee, stop:1.0 #fefefe); } QToolTip { color: #cecece; background-color: #333333;  border:0px;} ");
+    setObjectName("CyBillWallet");
+//    setStyleSheet("#CyBillWallet { background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #eeeeee, stop:1.0 #fefefe); } QToolTip { color: #cecece; background-color: #333333;  border:0px;} ");
 
     // Create actions for the toolbar, menu bar and tray/dock icon
     createActions();
@@ -237,10 +237,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     statusBar()->addWidget(progressBar);
     statusBar()->addPermanentWidget(frameBlocks);
     statusBar()->setObjectName("MagiStatusBar");
-//    statusBar()->setStyleSheet("#MagiStatusBar { border-top-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #4B4F52, stop:0.5 #8B8F92, stop:1.0 #8B8F92); border-top-width: 2px; border-top-style: inset; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #666666, stop:0.5 #323232, stop:1.0 #111111); background-image: url(:images/shadowbar); background-repeat: repeat-x; background-position: bottom center; color: #ffffff; } QToolTip { color: #ffffff; background-color: #9D0000; border-width: 1px;border-color:#CA0D0D;}");
 
     syncIconMovie = new QMovie(":/movies/update_spinner", "mng", this);
-//     this->setStyleSheet("background-color: #effbef;");
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
@@ -462,9 +460,7 @@ void BitcoinGUI::createToolBars()
 {
     QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
     toolbar->setObjectName("tabsToolbar");
-    toolbar->setStyle(QStyleFactory::create("cleanlooks"));
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-//    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
     toolbar->setMovable(false);
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
@@ -472,14 +468,6 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
     toolbar->addAction(consoleAction);
-//    QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
-//    toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-//    toolbar2->addAction(lockWalletToggleAction);
-//    toolbar2->addAction(exportAction);
-//    toolbar2->setObjectName("actionsToolbar");
-
-//    toolbar->setStyleSheet("QToolButton { min-height:48px;color:#ffffff;border:none;margin:0px;padding:0px;} QToolButton:hover { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #8E8F8F, stop:1.0 #7E7F81); margin:0px; padding:0px; border:none; } QToolButton:checked { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #474748, stop:1.0 #353536); margin:0px; padding:0px; border-right-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #3b3b3b, stop:0.5 #6c6c6f, stop:1.0 #6c6c6f);border-right-width:2px;border-right-style:inset; border-left-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #6c6c6f, stop:0.5 #6c6c6f, stop:1.0 #3b3b3b);border-left-width:2px;border-left-style:inset; } QToolButton:pressed { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #474748, stop:1.0 #353536); margin:0px; padding:0px; border:none;} QToolButton:selected { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #474748, stop:1.0 #353536); margin:0px;padding:0px;border:none; } #tabsToolbar { min-height:48px; color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #6e6e71, stop:1.0 #4e4e4f); margin:0px; padding:0px; border-top-color: rgba(160, 160, 160, 191); border-top-width: 1px; border-top-style: inset; } QToolBar::handle { background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #6e6e71, stop:1.0 #4e4e4f); }");
-//    toolbar2->setStyleSheet("QToolButton { min-height:48px;color:#ffffff;border:none;margin:0px;padding:0px;} QToolButton::disabled { color: #808080; } QToolButton:hover { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #7D7E7F, stop:1.0 #6D6F70); margin:0px; padding:0px; border:none; } QToolButton:checked { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #363637, stop:1.0 #242425); margin:0px; padding:0px; border-right-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #2a2a2a, stop:0.5 #5b5b5e, stop:1.0 #5b5b5e);border-right-width:2px;border-right-style:inset; border-left-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #5b5b5e, stop:0.5 #5b5b5e, stop:1.0 #2a2a2a);border-left-width:2px;border-left-style:inset; } QToolButton:pressed { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #363637, stop:1.0 #242425); margin:0px; padding:0px; border:none; border-left-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #5b5b5e, stop:0.5 #5b5b5e, stop:1.0 #2a2a2a);border-left-width:2px;border-left-style:inset;} QToolButton:selected { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #363637, stop:1.0 #242425); margin:0px;padding:0px;border:none; } #actionsToolbar { color: #ffffff; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #5D5D60, stop:1.0 #3D3D3F); margin:0px; padding:0px; border-top-color: rgba(160, 160, 160, 191); border-top-width: 1px; border-top-style: inset; } QToolBar::handle { background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #5D5D60, stop:1.0 #3D3D3F); }");
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -576,7 +564,7 @@ void BitcoinGUI::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setToolTip(tr("Magi client"));
+    trayIcon->setToolTip(tr("CyBill client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
         this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
@@ -707,7 +695,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Magi network.", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to CyBill network.", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -1080,7 +1068,7 @@ void BitcoinGUI::dropEvent(QDropEvent *event)
         if (nValidUrisFound)
             gotoSendCoinsPage();
         else
-            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid Magi address or malformed URI parameters."));
+            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid CyBill address or malformed URI parameters."));
     }
 
     event->acceptProposedAction();
@@ -1095,7 +1083,7 @@ void BitcoinGUI::handleURI(QString strURI)
         gotoSendCoinsPage();
     }
     else
-        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid Magi address or malformed URI parameters."));
+        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid CyBill address or malformed URI parameters."));
 }
 
 void BitcoinGUI::setEncryptionStatus(int status)

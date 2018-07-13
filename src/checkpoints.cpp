@@ -59,6 +59,15 @@ namespace Checkpoints
         ( 0,	hashGenesisBlockTestNet )
         ;
 
+    bool CheckBlock(int nHeight, const uint256& hash)
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        MapCheckpoints::const_iterator i = checkpoints.find(nHeight);
+        if (i == checkpoints.end()) return true;
+        return hash == i->second;
+    }
+
     bool CheckHardened(int nHeight, const uint256& hash)
     {
         if (!GetBoolArg("-checkpoints", true))

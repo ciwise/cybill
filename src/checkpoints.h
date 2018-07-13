@@ -35,6 +35,7 @@ namespace Checkpoints
     extern std::string strCheckpointWarning;
 
     CBlockIndex* GetLastSyncCheckpoint();
+    bool CheckBlock(int nHeight, const uint256& hash);
     bool WriteSyncCheckpoint(const uint256& hashCheckpoint);
     bool IsSyncCheckpointEnforced();
     bool AcceptPendingSyncCheckpoint();

@@ -5,7 +5,7 @@ Copyright (c) 2014 Magi Developers
 Copyright (c) 2018 CI Wise Developers
 
 Distributed under the MIT/X11 software license, see the accompanying
-file LICENSE or https://opensource.org/licenses/MIT
+file LICENSE or http://opensource.org/licenses/MIT
 This product includes software developed by the OpenSSL Project for use in
 the OpenSSL Toolkit (http://www.openssl.org/).  This product includes
 cryptographic software written by Eric Young (eay@cryptsoft.com).
@@ -30,13 +30,13 @@ enable Universal Plug and Play (UPnP) with your router/firewall
 or forward port 
 
 23489 (TCP) to your computer so you can receive
-incoming connections.  Magi works without incoming connections,
-but allowing incoming connections helps the Magi network.
+incoming connections.   CyBill works without incoming connections,
+but allowing incoming connections helps the CyBill network.
 
 
 Upgrade
 -------
-All you existing coins/transactions should be intact with the upgrade.
+All your existing coins/transactions should be intact with the upgrade.
 To upgrade first backup wallet
 magid backupwallet <destination_backup_file>
 Then shutdown magid by

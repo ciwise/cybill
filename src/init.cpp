@@ -1,7 +1,42 @@
+//
+// The MIT License (MIT)
+//
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
+// Copyright (c) 2018 David L. Whitehurst
+//
 // Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// file COPYING or http://opensource.org/licenses/MIT
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+// init.cpp
+//
+// author: Satoshi Nakamoto
+// revised: David L. Whitehurst
+// date: May 30, 2018
+//
+// Find this code useful? Please donate:
+//  Bitcoin: 1Mxt427mTF3XGf8BiJ8HjkhbiSVvJbkDFY
+//
+//
+
 #include "init.h"
 #include "walletdb.h"
 #include "magirpc.h"
@@ -30,11 +65,9 @@ bool fUseFastIndex;
 extern int64 nStakeSplitThreshold;
 extern int64 nStakeCombineThreshold;
 
-//////////////////////////////////////////////////////////////////////////////
-//
+// **************************************************************************************************************
 // Shutdown
-//
-
+// **************************************************************************************************************
 void ExitTimeout(void* parg)
 {
 #ifdef WIN32
@@ -110,14 +143,9 @@ void HandleSIGHUP(int)
     fReopenDebugLog = true;
 }
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
+// **************************************************************************************************************
 // Start
-//
+// **************************************************************************************************************
 #if !defined(QT_GUI)
 bool AppInit(int argc, char* argv[])
 {
@@ -139,12 +167,12 @@ bool AppInit(int argc, char* argv[])
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
             // First part of help message is specific to bitcoind / RPC client
-            std::string strUsage = _("Magi version") + " " + FormatFullVersion() + "\n\n" +
+            std::string strUsage = _("CyBill version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  magid [options]                     " + "\n" +
-                  "  magid [options] <command> [params]  " + _("Send command to -server or magid") + "\n" +
-                  "  magid [options] help                " + _("List commands") + "\n" +
-                  "  magid [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  cybilld [options]                     " + "\n" +
+                  "  cybilld [options] <command> [params]  " + _("Send command to -server or cybilld") + "\n" +
+                  "  cybilld [options] help                " + _("List commands") + "\n" +
+                  "  cybilld [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -154,7 +182,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "Magi:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "CyBill:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -194,13 +222,13 @@ int main(int argc, char* argv[])
 
 bool static InitError(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("Magi"), CClientUIInterface::OK | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("CyBill"), CClientUIInterface::OK | CClientUIInterface::MODAL);
     return false;
 }
 
 bool static InitWarning(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("Magi"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("CyBill"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
     return true;
 }
 
@@ -507,7 +535,7 @@ bool AppInit2()
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "Magi server starting\n");
+        fprintf(stdout, "CyBill server starting\n");
 
     int64 nStart;
 
@@ -539,7 +567,7 @@ bool AppInit2()
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."), strDataDir.c_str());
-            uiInterface.ThreadSafeMessageBox(msg, _("Magi"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("CyBill"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         }
         if (r == CDBEnv::RECOVER_FAIL)
             return InitError(_("wallet.dat corrupt, salvage failed"));
@@ -907,10 +935,10 @@ bool AppInit2()
 std::string LicenseInfo(bool f1, bool f2)
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/ciwise/cybill>";
-    const std::string URL_WEBSITE = "<http://m-core.org>";
+    const std::string URL_WEBSITE = "<https://ciwise.org>";
     const std::string additionalInfo = "Magi (XMG) is an online payment system, enabling instant payments to anyone in the world without using an intermediary. Magi coins can be minted by computational devices including personal computers and portable devices through mPoW and mPoS. Magi aims at fairness, cost effective and energy efficiency during coin minting.";
 
-    return ( (f1 ? (std::string(BTC_COPYRIGHT_STR) + "\n" + std::string(PPC_COPYRIGHT_STR) + "\n") : "") + 
+    return ( (f1 ? (std::string(BTC_COPYRIGHT_STR) + "\n" + std::string(PPC_COPYRIGHT_STR) + "\n" + std::string(MAG_COPYRIGHT_STR) + "\n") : "") +
         CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2018, COPYRIGHT_YEAR) + " ") + "\n" +
         "\n" +
         (f2 ? additionalInfo + "\n" : "") + "\n" + 

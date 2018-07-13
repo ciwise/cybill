@@ -7,7 +7,7 @@
 
 #include "wallet.h"
 
-#define PACKAGE_NAME "Magi"
+#define PACKAGE_NAME "CyBill"
 
 extern CWallet* pwalletMain;
 
