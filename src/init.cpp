@@ -28,8 +28,7 @@
 //
 // init.cpp
 //
-// author: Satoshi Nakamoto
-// revised: David L. Whitehurst
+// author: David L. Whitehurst
 // date: May 30, 2018
 //
 // Find this code useful? Please donate:
@@ -337,7 +336,7 @@ std::string HelpMessage()
     return strUsage;
 }
 
-/** Initialize bitcoin.
+/** Initialize CyBill.
  *  @pre Parameters should be parsed and config file should be read.
  */
 bool AppInit2()
@@ -499,7 +498,7 @@ bool AppInit2()
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Magi is probably already running."), strDataDir.c_str()));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  CyBill is probably already running."), strDataDir.c_str()));
 
 #if !defined(WIN32) && !defined(QT_GUI)
     if (fDaemon)
@@ -526,7 +525,7 @@ bool AppInit2()
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("Magi version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    printf("CyBill version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
         printf("Startup time: %s\n", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
@@ -535,7 +534,7 @@ bool AppInit2()
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "CyBill server starting\n");
+        fprintf(stdout, "CyBill: server starting\n");
 
     int64 nStart;
 
@@ -543,6 +542,7 @@ bool AppInit2()
 
     uiInterface.InitMessage(_("Verifying database integrity..."));
 
+    LOCK(bitdb.cs_db);
     if (!bitdb.Open(GetDataDir()))
     {
         string msg = strprintf(_("Error initializing database environment %s!"
