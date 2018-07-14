@@ -638,22 +638,24 @@ public:
         return fNewer;
     }
 
+    // Coin Base - UTXO created by Miner reward
     bool IsCoinBase() const
     {
         return (vin.size() == 1 && vin[0].prevout.IsNull() && vout.size() >= 1);
     }
 
+    // Coin Stake - UTXO created by Minter reward
     bool IsCoinStake() const
     {
         // ppcoin: the coin stake transaction is marked with the first output empty
         return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
     }
 
+    // Specialty UTXO
 	bool IsCoinBaseOrStake() const
     {
         return (IsCoinBase() || IsCoinStake());
     }
-
 
     /** Check for standard transaction types
         @return True if all outputs (scriptPubKeys) use only standard transaction forms
