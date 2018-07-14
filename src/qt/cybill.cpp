@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
 #endif
 
-    Q_INIT_RESOURCE(magi);
+    Q_INIT_RESOURCE(cybill); // was magi
     
     QApplication app(argc, argv);
 #if QT_VERSION > 0x050100
@@ -187,11 +187,11 @@ int main(int argc, char *argv[])
     if (qtTranslator.load("qt_" + lang_territory, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         app.installTranslator(&qtTranslator);
 
-    // Load e.g. magi_de.qm (shortcut "de" needs to be defined in magi.qrc)
+    // Load e.g. magi_de.qm (shortcut "de" needs to be defined in cybill.qrc)
     if (translatorBase.load(lang, ":/translations/"))
         app.installTranslator(&translatorBase);
 
-    // Load e.g. magi_de_DE.qm (shortcut "de_DE" needs to be defined in magi.qrc)
+    // Load e.g. magi_de_DE.qm (shortcut "de_DE" needs to be defined in cybill.qrc)
     if (translator.load(lang_territory, ":/translations/"))
         app.installTranslator(&translator);
 

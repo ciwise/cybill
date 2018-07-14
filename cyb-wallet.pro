@@ -339,7 +339,7 @@ SOURCES += \
     src/hash/whirlpool.cpp
 
 RESOURCES += \
-    src/qt/magi.qrc
+    src/qt/cybill.qrc
 
 FORMS += \
     src/qt/forms/coincontroldialog.ui \

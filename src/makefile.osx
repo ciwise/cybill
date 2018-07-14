@@ -23,7 +23,7 @@ INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
  -I"$(DEPSDIR)/include" \
- -I"$(DEPSDIR)/berkeley-db@4/4.8.30/include/db48" \
+ -I"$(DEPSDIR)/berkeley-db@4/4.8.30/include" \
  -I"$(DEPSDIR)/openssl/1.0.2o_2/include"
 
 LIBPATHS= \
