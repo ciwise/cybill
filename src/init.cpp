@@ -936,18 +936,33 @@ std::string LicenseInfo(bool f1, bool f2)
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/ciwise/cybill>";
     const std::string URL_WEBSITE = "<https://ciwise.org>";
-    const std::string additionalInfo = "Magi (XMG) is an online payment system, enabling instant payments to anyone in the world without using an intermediary. Magi coins can be minted by computational devices including personal computers and portable devices through mPoW and mPoS. Magi aims at fairness, cost effective and energy efficiency during coin minting.";
+    const std::string additionalInfo = "CyBill is an online payment system that utilizes virtual currency that cannot be exploited,"
+                                       "taxed, regulated, or otherwise manipulated by any individual or organization. Coins that are"
+                                       "minted by the Cybill network can traded for products and services without outside intervention."
+                                       "The CyBill cryptocurrency belongs to the people that own it.\n"
+                                       "\n"
+                                       "CyBill coins are created through minting by CyBill network users.  They can be minted by any "
+                                       "computational device with a CPU. Minting using GPU or ASIC processing is discouraged. It is also "
+                                       "throttled by the mining pools, mining algorithms, and also the CyBill community. Cybill has a goal "
+                                       "of being cost-effective and energy efficient during minting (mining). We want to mint currency that "
+                                       "will be used and will always be the property of the anonymous owner on the blockchain. \n"
+                                       "\n"
+                                       "Cybill will be maintained through the consensus of it’s members. As an individual you have rights "
+                                       "to use Cybill cryptocurrency if you participate in the minting of coins and provide a contribution "
+                                       "to the validation of transactions. CyBill should be untouched by the local laws of your government "
+                                       "because the virtual currency you mint will never be traded for fiat or crypto currencies that are "
+                                       "becoming more and more regulated worldwide.";
 
     return ( (f1 ? (std::string(BTC_COPYRIGHT_STR) + "\n" + std::string(PPC_COPYRIGHT_STR) + "\n" + std::string(MAG_COPYRIGHT_STR) + "\n") : "") +
         CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2018, COPYRIGHT_YEAR) + " ") + "\n" +
         "\n" +
         (f2 ? additionalInfo + "\n" : "") + "\n" + 
-        strprintf(_("Please contribute if you find %s useful. Visit %s for further information about the software. "), PACKAGE_NAME,URL_WEBSITE.c_str()) +
+        strprintf(_("Please contribute to the coding, mining, use, and growth of %s. Visit %s for further information about the software. "), PACKAGE_NAME,URL_WEBSITE.c_str()) +
         "\n\n" + 
         strprintf(_("Source code: %s"), URL_SOURCE_CODE.c_str()) + "\n" + 
-        strprintf(_("Dowloand wallet: %s"), "<http://m-core.org/bin>") + "\n" + 
+        strprintf(_("Download wallet: %s"), "<http://m-core.org/bin>") + "\n" +
         strprintf(_("Block-Chain: %s"), "<http://m-core.org/bin/block-chain>") + "\n" + 
-        strprintf(_("Roadmap: %s"), "<http://m-core.org/resources/roadmap>") + "\n" + 
+        strprintf(_("Roadmap: %s"), "<https://roadmap.coinmagi.org/>") + "\n" +
         "\n" + 
         _("This is experimental software.") + 
         strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s"), "COPYING", "<https://opensource.org/licenses/MIT>") + "\n" + "\n" +
